@@ -6,6 +6,9 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import WashingListsScreen from '../screens/WashingListsScreen';
+
+// import washingLists from '../screens'
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -53,8 +56,23 @@ SettingsStack.navigationOptions = {
   ),
 };
 
+const WashingListsStack = createStackNavigator({
+  WashingLists: WashingListsScreen,
+});
+
+WashingListsStack.navigationOptions = {
+  tabBarLabel: 'Vaskelister',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+    />
+  ),
+};
+
 export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
   SettingsStack,
+  WashingListsStack,
 });

@@ -2,11 +2,24 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
+import firebase from 'firebase';
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
   };
+
+  componentWillMount() {
+      var config = {
+      apiKey: "AIzaSyDu4T-qbGWPR0umdpfrY9jbBu5udHcQxj8",
+      authDomain: "tb-app-5bb84.firebaseapp.com",
+      databaseURL: "https://tb-app-5bb84.firebaseio.com",
+      projectId: "tb-app-5bb84",
+      storageBucket: "tb-app-5bb84.appspot.com",
+      messagingSenderId: "1039894800413"
+    };
+    firebase.initializeApp(config);
+  }
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
