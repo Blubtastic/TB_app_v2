@@ -29,6 +29,8 @@ export default class WashingListsScreen extends React.Component {
 
     async componentDidMount(){
     let responseJson = [];
+    let filtered = [];
+    let d = new Date();
     let query = firebase.database().ref("washingLists").orderByKey();
     let value = await query.once("value");
     value.forEach(function(childSnapshot) {
@@ -37,10 +39,11 @@ export default class WashingListsScreen extends React.Component {
       let childData = childSnapshot.val();
       responseJson.push(childData);
     });
+    filtered = responseJson.filter(wash => (parseInt(wash.date.slice(0,2)) >= d.getDate()));
     this.setState({
       ...this.state,
       isLoading: false,
-      washingLists: responseJson,
+      washingLists: filtered,
     });
   };
 
