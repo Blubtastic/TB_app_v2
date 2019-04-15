@@ -45,9 +45,7 @@ export default class WashingListsScreen extends React.Component {
   };
 
     checkRoomDate(){
-      console.log(this.state.washingLists);
       for(let i = 0; i<this.state.washingLists.length; i++){
-        console.log(this.state.washingLists[i].room);
         //TODO: Bytt ut 604 med brukers nummer fra props/localstorage
         if(this.state.washingLists[i].room == 604){
           return (<Text>Din vaskedag er {this.state.washingLists[i].date}!</Text>)
