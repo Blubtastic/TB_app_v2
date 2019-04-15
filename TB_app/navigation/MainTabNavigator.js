@@ -9,8 +9,6 @@ import SettingsScreen from '../screens/SettingsScreen';
 import WashingListsScreen from '../screens/WashingListsScreen';
 import CardGamesScreen from '../screens/CardGamesScreen';
 
-// import washingLists from '../screens'
-
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
 });
