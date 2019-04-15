@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet, Text, View, Image, TextInput, TouchableHighlight, FlatList, Button} from 'react-native';
+import { AsyncStorage, StyleSheet, Text, View, Image, TextInput, TouchableHighlight, FlatList, Button, Platform} from 'react-native';
 
 import CustomHeader from '../components/customHeader';
 import CustomModal from '../components/customModal';
@@ -128,7 +128,7 @@ export default class CardGamesScreen extends React.Component {
     if(!this.state.showCardGame){
       return (
         <View style={{flex: 1}}>
-          <CustomHeader title={"Kortspill"} icon={"ios-arrow-back"} navigation={this.props.navigation} />
+          <CustomHeader title={"Kortspill"} icon={Platform.OS === 'ios' ? 'logo-game-controller-a' : 'logo-game-controller-a'} navigation={this.props.navigation} />
           <View style={styles.content}>
 
           {/* Create new cardgame modal */}

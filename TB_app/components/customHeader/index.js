@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image} from 'react-native';
+import { StyleSheet, Text, View, Image, Platform} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 /*
@@ -23,7 +23,7 @@ export default class CustomHeader extends React.Component {
           <View style={styles.bodyContainer}>
             <Text style={styles.title}>{this.props.title}</Text>
           </View>
-          <Ionicons style={styles.icon} name="md-menu" size={50} color="black" />
+          <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'} size={50} color="black" />
         </View>
       );
     } else {
@@ -33,7 +33,7 @@ export default class CustomHeader extends React.Component {
           <View style={styles.bodyContainer}>
             <Text style={styles.title}>{this.props.title}</Text>
           </View>
-          <Ionicons style={styles.icon} name="md-menu" size={50} color="black" />
+          <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'} size={50} color="black" />
         </View>
       );
     }
@@ -70,6 +70,6 @@ const styles = StyleSheet.create({
     height: 30,
   },
   title: {
-    fontSize: 30,
+    fontSize: 20,
   }
 });

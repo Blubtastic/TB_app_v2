@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, ActivityIndicator, Image} from 'react-native';
+import { StyleSheet, Text, View, FlatList, ActivityIndicator, Image, Platform} from 'react-native';
 import CustomHeader from '../components/customHeader';
 import firebase from 'firebase';
 
@@ -62,7 +62,7 @@ export default class WashingListsScreen extends React.Component {
     if(this.state.isLoading){
       return(
         <View style={{flex: 1}}>
-          <CustomHeader title={"Vaskelister"} icon={"ios-arrow-back"}/>
+          <CustomHeader title={"Vaskelister"} icon={Platform.OS === 'ios' ? 'ios-list-box' : 'md-list-box'}/>
           <ActivityIndicator size="large" color="#000000" />
         </View>
       )
@@ -72,7 +72,7 @@ export default class WashingListsScreen extends React.Component {
       let washDate = this.checkRoomDate();
       return(
         <View style={{flex: 1}}>
-          <CustomHeader title={"Vaskelister"} icon={"ios-arrow-back"} />
+          <CustomHeader title={"Vaskelister"} icon={Platform.OS === 'ios' ? 'ios-list-box' : 'md-list-box'} />
 
           <View style={styles.content}>
             <View>

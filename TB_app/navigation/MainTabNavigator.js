@@ -1,6 +1,7 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, Image } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import Colors from '../constants/Colors';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
@@ -14,16 +15,16 @@ const HomeStack = createStackNavigator({
 });
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  tabBarLabel: 'Hjem',
+  tabBarOptions: {
+    activeTintColor: Colors.tabIconSelected,
+  },
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
+    <Image
+        source={focused? require('../assets/images/tabbar_logo_orange.png') : require('../assets/images/tabbar_logo.png')}
+        fadeDuration={0}
+        style={{width: 26, height: 26}}
+      />
   ),
 };
 
@@ -32,7 +33,10 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'Innstillinger',
+  tabBarOptions: {
+    activeTintColor: Colors.tabIconSelected,
+  },
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -47,10 +51,13 @@ const WashingListsStack = createStackNavigator({
 
 WashingListsStack.navigationOptions = {
   tabBarLabel: 'Vaskelister',
+  tabBarOptions: {
+    activeTintColor: Colors.tabIconSelected,
+  },
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={Platform.OS === 'ios' ? 'ios-list-box' : 'md-list-box'}
     />
   ),
 };
@@ -61,17 +68,20 @@ const CardGamesStack = createStackNavigator({
 
 CardGamesStack.navigationOptions = {
   tabBarLabel: 'Kortspill',
+  tabBarOptions: {
+    activeTintColor: Colors.tabIconSelected,
+  },
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={Platform.OS === 'ios' ? 'logo-game-controller-a' : 'logo-game-controller-a'}
     />
   ),
 };
 
 export default createBottomTabNavigator({
   HomeStack,
-  SettingsStack,
   WashingListsStack,
   CardGamesStack,
+  SettingsStack,
 });
