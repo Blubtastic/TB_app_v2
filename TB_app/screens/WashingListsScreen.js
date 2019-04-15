@@ -29,20 +29,30 @@ export default class WashingListsScreen extends React.Component {
 
     async componentDidMount(){
     let responseJson = [];
-    var query = firebase.database().ref("washingLists").orderByKey();
-    var value = await query.once("value");
+    let query = firebase.database().ref("washingLists").orderByKey();
+    let value = await query.once("value");
     value.forEach(function(childSnapshot) {
-      var key = childSnapshot.key;
+      let key = childSnapshot.key;
       // childData will be the actual contents of the child
-      var childData = childSnapshot.val();
+      let childData = childSnapshot.val();
       responseJson.push(childData);
     });
     this.setState({
       ...this.state,
       isLoading: false,
-      dataSource: responseJson,
+      washingLists: responseJson,
     });
-  }
+  };
+
+    checkRoomDate(){
+      for(let i = 0; i<this.state.washingLists.length; i++){
+        //TODO: Bytt ut 604 med brukers nummer fra props/localstorage
+        if(this.state.washingLists[i].room == 604){
+          return (<Text>Din vaskedag er {this.state.washingLists[i].date}!</Text>)
+        }
+      }
+      return (<Text>Du har ikke vaskedag denne måneden!</Text>)
+    };
 
   render(){
     //Render loading screen
@@ -56,13 +66,17 @@ export default class WashingListsScreen extends React.Component {
     }
     //Render content when loading is done
     else{
+      let washDate = this.checkRoomDate();
       return(
         <View style={{flex: 1}}>
           <CustomHeader title={"Vaskelister"} icon={"ios-arrow-back"} />
 
           <View style={styles.content}>
+            <View>
+              {washDate}
+            </View>
           <FlatList
-          data={this.state.dataSource}
+          data={this.state.washingLists}
           renderItem={({item}) =>
           <View style={styles.listRow}>
             <Text style={styles.rom}>{item.room}</Text>
