@@ -1,12 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableHighlight, TextInput } from 'react-native';
-import { H1, H2, H3 } from 'native-base';
 
-import CustomHeader from '../../SmallComponents/CustomHeader';
-import CustomModal from '../../SmallComponents/CustomModal';
-import CloseButton from '../../SmallComponents/CloseButton';
-import DeleteButton from '../../SmallComponents/DeleteButton';
-import WideButton from '../../SmallComponents/WideButton';
+import CustomHeader from '../components/customHeader';
+import CustomModal from '../components/customModal';
+import DeleteButton from '../components/deleteButton';
+import WideButton from '../components/wideButton';
+import CloseButton from '../components/closeButton';
 
 /*
 KORTSPILL COMPONENT: ----------------------------------------------------------
@@ -17,7 +16,7 @@ cardgame menu component.
 PROPERTIES:
 - navigation: the react-router navigation. Used to navigate between app pages.
 */
-export default class Kortspill extends React.Component {
+export default class CardGame extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -138,7 +137,7 @@ export default class Kortspill extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.header}>
-          <H1>{this.props.gameTitle}</H1>
+          <Text>{this.props.gameTitle}</Text>
           <CloseButton action={() => this.props.showCardGame(false)} />
         </View>
 
@@ -215,7 +214,7 @@ export default class Kortspill extends React.Component {
                   <TouchableHighlight onPress={ () => this.selectPlayer(item) } >
                     <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
                       <View style={{ marginRight: 10, width: '30%', borderRightWidth: 0.5, borderColor: '#d6d7da', }}>
-                        <H3>{item.name}</H3>
+                        <Text>{item.name}</Text>
                         <Text style={{ color: '#F9A423' }}>{item.sum + ' poeng'}</Text>
                       </View>
                       <FlatList

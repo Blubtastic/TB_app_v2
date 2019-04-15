@@ -1,13 +1,11 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet, Text, View, Image, TextInput, TouchableHighlight, FlatList} from 'react-native';
-import { H1, H2, H3, Button } from 'native-base';
+import { AsyncStorage, StyleSheet, Text, View, Image, TextInput, TouchableHighlight, FlatList, Button} from 'react-native';
 
-import CustomHeader from '../SmallComponents/CustomHeader';
-import CustomModal from '../SmallComponents/CustomModal';
-import DeleteButton from '../SmallComponents/DeleteButton';
-import WideButton from '../SmallComponents/WideButton';
-
-import Kortspill from './Kortspill';
+import CustomHeader from '../components/customHeader';
+import CustomModal from '../components/customModal';
+import DeleteButton from '../components/deleteButton';
+import WideButton from '../components/wideButton';
+import CardGame from './CardGame.js';
 
 
 /*
@@ -17,7 +15,7 @@ PROPERTIES:
 - Navigation.
 */
 
-export default class Kortspilloversikt extends React.Component {
+export default class CardGamesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,9 +37,10 @@ export default class Kortspilloversikt extends React.Component {
 
   }
   static navigationOptions = {
+    header: null,
     drawerLabel: 'Kortspill',
     drawerIcon: (
-      <Image source={require('../../images/kortspill.png')} style={{ width: 24, height: 24 }} />
+      <Image source={require('../assets/images/kortspill.png')} style={{ width: 24, height: 24 }} />
     ),
   };
   componentWillMount() {
@@ -154,12 +153,8 @@ export default class Kortspilloversikt extends React.Component {
             {/* Delete cardgame modal */}
             <CustomModal modalVisible={this.state.deleteModalVisible} toggleModal={this.toggleDeletemodal} title={'Slett "' + this.state.gameTitle + '" ?'}>
               <View style={{flexDirection: 'row'}}>
-                <Button style={styles.grayButton} onPress={() => this.toggleDeletemodal(false)} >
-                  <H1 style={styles.text}>Tilbake</H1>
-                </Button>
-                <Button style={styles.button} onPress={() => this.deleteGame()} >
-                  <H1 style={styles.text}>Slett</H1>
-                </Button>
+                <Button title="Tilbake" style={styles.grayButton} onPress={() => this.toggleDeletemodal(false)} />
+                <Button title="Slett" style={styles.button} onPress={() => this.deleteGame()} />
               </View>
             </CustomModal>
 
@@ -172,7 +167,7 @@ export default class Kortspilloversikt extends React.Component {
                 renderItem={({ item, index }) =>
                   <TouchableHighlight style={styles.largeLink} onPress={ () => this.setPlayers(item) }>
                     <View style={{flexDirection: 'row', alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', padding: 20}}>
-                      <H3 style={{ color: '#000' }}>{item.title}</H3>
+                      <Text style={{ color: '#000' }}>{item.title}</Text>
                       <DeleteButton action={() => {this.toggleDeletemodal(true), this.setState({deleteIndex: index, gameTitle: this.state.cardGames[index].title }) } } />
                     </View>
                   </TouchableHighlight>
@@ -187,7 +182,7 @@ export default class Kortspilloversikt extends React.Component {
     }else{
       //Render the seelected card game instead of the cardgame view.
       return (
-        <Kortspill playerdata={this.state.players} gameTitle={this.state.gameTitle} showCardGame={this.showCardGame} saveGames={this.saveGames} />
+        <CardGame playerdata={this.state.players} gameTitle={this.state.gameTitle} showCardGame={this.showCardGame} saveGames={this.saveGames} />
       );
     }
   }

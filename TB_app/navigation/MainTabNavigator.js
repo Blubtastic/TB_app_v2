@@ -7,6 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import WashingListsScreen from '../screens/WashingListsScreen';
+import CardGamesScreen from '../screens/CardGamesScreen';
 
 // import washingLists from '../screens'
 
@@ -70,9 +71,24 @@ WashingListsStack.navigationOptions = {
   ),
 };
 
+const CardGamesStack = createStackNavigator({
+  CardGames: CardGamesScreen,
+});
+
+CardGamesStack.navigationOptions = {
+  tabBarLabel: 'Kortspill',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+    />
+  ),
+};
+
 export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
   SettingsStack,
   WashingListsStack,
+  CardGamesStack,
 });
