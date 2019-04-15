@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Icon} from 'react-native';
+import { StyleSheet, Text, View, Image} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 /*
 CUSTOM HEADER: ----------------------------------------------------------
@@ -17,11 +18,12 @@ export default class CustomHeader extends React.Component {
     if (this.props.icon != null){
       return (
         <View style={styles.body} >
-          <Icon style={styles.icon} name={this.props.icon} />
+          {/*<Icon style={styles.icon} name={this.props.icon} />*/}
+          <Ionicons style={styles.icon} name={this.props.icon} size={50} color="black" />
           <View style={styles.bodyContainer}>
             <Text style={styles.title}>{this.props.title}</Text>
           </View>
-          <Icon style={styles.icon} name="md-menu" />
+          <Ionicons style={styles.icon} name="md-menu" size={50} color="black" />
         </View>
       );
     } else {
@@ -31,7 +33,7 @@ export default class CustomHeader extends React.Component {
           <View style={styles.bodyContainer}>
             <Text style={styles.title}>{this.props.title}</Text>
           </View>
-          <Icon style={styles.icon} name="md-menu"/>
+          <Ionicons style={styles.icon} name="md-menu" size={50} color="black" />
         </View>
       );
     }

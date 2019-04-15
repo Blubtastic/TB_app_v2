@@ -19,29 +19,24 @@ export default class WashingListsScreen extends React.Component {
     }
   }
   static navigationOptions = {
+    header: null,
     drawerLabel: 'Vaskelister',
     drawerIcon: (
       <Image source={ require('../assets/images/vaskelister.png') } style={{width: 24, height: 24}}/>
     ),
   };
 
-  //Get the washing lists from the server.
 
     async componentDidMount(){
-    //Server link
     let responseJson = [];
-
     var query = firebase.database().ref("washingLists").orderByKey();
     var value = await query.once("value");
-      value.forEach(function(childSnapshot) {
-        // key will be "ada" the first time and "alan" the second time
-        var key = childSnapshot.key;
-        // childData will be the actual contents of the child
-        var childData = childSnapshot.val();
-        responseJson.push(childData);
-        console.log("DATA COMES HERE:")
-        console.log(responseJson);
-      });
+    value.forEach(function(childSnapshot) {
+      var key = childSnapshot.key;
+      // childData will be the actual contents of the child
+      var childData = childSnapshot.val();
+      responseJson.push(childData);
+    });
     this.setState({
       ...this.state,
       isLoading: false,
@@ -54,7 +49,7 @@ export default class WashingListsScreen extends React.Component {
     if(this.state.isLoading){
       return(
         <View style={{flex: 1}}>
-          {/*<CustomHeader title={"Vaskelister"} icon={"ios-arrow-back"}/>*/}
+          <CustomHeader title={"Vaskelister"} icon={"ios-arrow-back"}/>
           <ActivityIndicator size="large" color="#000000" />
         </View>
       )
@@ -63,7 +58,7 @@ export default class WashingListsScreen extends React.Component {
     else{
       return(
         <View style={{flex: 1}}>
-          {/*<CustomHeader title={"Vaskelister"} icon={"ios-arrow-back"} />*/}
+          <CustomHeader title={"Vaskelister"} icon={"ios-arrow-back"} />
 
           <View style={styles.content}>
           <FlatList
