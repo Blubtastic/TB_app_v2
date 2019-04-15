@@ -4,6 +4,10 @@
     "slug": "TB_app",
     "privacy": "public",
     "sdkVersion": "32.0.0",
+    "primaryColor": "#F9A423",
+    "notification": {
+      "icon": "./assets/images/notifications_logo.png",
+    },
     "platforms": [
       "ios",
       "android"
@@ -12,7 +16,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
