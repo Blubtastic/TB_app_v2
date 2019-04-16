@@ -6,37 +6,37 @@ import { MonoText } from '../components/StyledText';
 import CustomHeader from "../components/customHeader";
 
 export default class HomeScreen extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
       image1: require('../assets/images/calendar.jpg')
     };
   }
-  
+
   static navigationOptions = {
     header: null,
     title: null
   };
-  
+
   render() {
     const { navigate } = this.props.navigation;
     return (
       <React.Fragment>
         <CustomHeader title={"Hjem"} />
         <ScrollView style={{ flex: 1 }}>
-    
+
           <View style={styles.content}>
-      
+
             {/* Shortcut to the most important component */}
             <ImageBackground style={styles.largeImg} source={require('../assets/images/kortspill.jpg')}>
               <TouchableHighlight style={styles.largeLink} onPress={() => navigate('CardGamesStack')}>
                 <View style={styles.textBar}>
-                  <Text style={{ color: '#fff' }}>Kortspill</Text>
+                  <Text style={{ color: '#fff' }}>Poengoversikt</Text>
                 </View>
               </TouchableHighlight>
             </ImageBackground>
-  
+
             <View style={styles.row}>
               {/* Shortcut to normal component */}
               <ImageBackground style={styles.img} source={require('../assets/images/vaskelister.jpg')}>
@@ -54,7 +54,7 @@ export default class HomeScreen extends React.Component {
                 </TouchableHighlight>
               </ImageBackground>
             </View>
-  
+
             <View style={styles.row}>
               <ImageBackground style={styles.img} source={require('../assets/images/vorskalender.png')}>
                 <TouchableHighlight style={styles.link} onPress={() => navigate('')}>
@@ -71,9 +71,9 @@ export default class HomeScreen extends React.Component {
                 </TouchableHighlight>
               </ImageBackground>
             </View>
-    
+
           </View>
-  
+
         </ScrollView>
       </React.Fragment>
     );

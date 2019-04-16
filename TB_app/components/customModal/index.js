@@ -33,8 +33,8 @@ export default class CustomModal extends React.Component {
             <TouchableWithoutFeedback>
               <View style={styles.modalContent}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 }}>
-                  <Text>{this.props.title}</Text>
-                  <View style={{ position: 'absolute', top: -20, right: -20 }}>
+                  <Text style={styles.title}>{this.props.title}</Text>
+                  <View style={{ position: 'absolute', top: -10, right: -10 }}>
                     <CloseButton action={ () => this.props.toggleModal(false) } />
                   </View>
                 </View>
@@ -68,4 +68,8 @@ const styles = StyleSheet.create({
     position: 'relative',
     zIndex: 2,
   },
+  title: {
+    fontSize: 18,
+    paddingVertical: 12,
+  }
 });

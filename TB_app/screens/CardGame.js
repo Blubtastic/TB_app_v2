@@ -6,6 +6,8 @@ import CustomModal from '../components/customModal';
 import DeleteButton from '../components/deleteButton';
 import WideButton from '../components/wideButton';
 import CloseButton from '../components/closeButton';
+import DefaultButton from '../components/defaultButton';
+
 
 /*
 KORTSPILL COMPONENT: ----------------------------------------------------------
@@ -127,7 +129,7 @@ export default class CardGame extends React.Component {
 
   renderPointButton() { //Only render points button if there are players.
     if (this.state.players.length > 0){
-      return <WideButton title={"Legg til poeng"} action={() => this.toggleModal(true)} />;
+      return <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Legg til poeng"} action={() => this.toggleModal(true)} />;
     }else{
       return null;
     }
@@ -137,14 +139,14 @@ export default class CardGame extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.header}>
-          <Text>{this.props.gameTitle}</Text>
+          <Text style={styles.title}>{this.props.gameTitle}</Text>
           <CloseButton action={() => this.props.showCardGame(false)} />
         </View>
 
         <View style={styles.content}>
           {/* New player */}
           <TextInput
-            style={{ height: 60, alignSelf: 'stretch',}}
+            style={styles.inputStyle}
             autoFocus={true}
             placeholder="Legg til ny spiller"
             ref={input => { this.textInput = input }}
@@ -182,7 +184,8 @@ export default class CardGame extends React.Component {
                 </View>
               }
             />
-            <WideButton title={"Legg til"} action={() => this.addScores()} />
+            <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Legg til"} action={() => this.addScores()} />
+
           </CustomModal>
 
           {/* Delete players/scores */}
@@ -198,7 +201,7 @@ export default class CardGame extends React.Component {
                 </View>
               }
             />
-            <WideButton title={"Slett spiller"} action={() => this.deletePlayer()} />
+            <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Slett spiller"} action={() => this.deletePlayer()} />
           </CustomModal>
 
           {/* Generate players/scores */}
@@ -250,8 +253,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 80,
-    marginTop: 24,
-    marginBottom: 30,
+    marginTop: 34,
+    marginBottom: 10,
     padding: 10
   },
   content: {
@@ -260,4 +263,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
+  title: {
+    fontSize: 25,
+    color: '#000',
+  },
+  inputStyle: {
+    height: 60,
+    alignSelf: 'stretch',
+    backgroundColor: '#eee',
+  }
 });

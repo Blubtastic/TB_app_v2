@@ -1,11 +1,14 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet, Text, View, Image, TextInput, TouchableHighlight, FlatList, Button, Platform} from 'react-native';
+import { AsyncStorage, StyleSheet, Text, View, Image, TextInput, TouchableHighlight, Button, FlatList, Platform} from 'react-native';
 
 import CustomHeader from '../components/customHeader';
 import CustomModal from '../components/customModal';
 import DeleteButton from '../components/deleteButton';
 import WideButton from '../components/wideButton';
+import DefaultButton from '../components/defaultButton';
 import CardGame from './CardGame.js';
+
+import Color from '../constants/Colors'
 
 
 /*
@@ -38,7 +41,7 @@ export default class CardGamesScreen extends React.Component {
   }
   static navigationOptions = {
     header: null,
-    drawerLabel: 'Kortspill',
+    drawerLabel: 'Poengoversikt',
     drawerIcon: (
       <Image source={require('../assets/images/kortspill.png')} style={{ width: 24, height: 24 }} />
     ),
@@ -128,7 +131,7 @@ export default class CardGamesScreen extends React.Component {
     if(!this.state.showCardGame){
       return (
         <View style={{flex: 1}}>
-          <CustomHeader title={"Kortspill"} icon={Platform.OS === 'ios' ? 'logo-game-controller-a' : 'logo-game-controller-a'} navigation={this.props.navigation} />
+          <CustomHeader title={"Poengoversikt"} icon={Platform.OS === 'ios' ? 'logo-game-controller-a' : 'logo-game-controller-a'} navigation={this.props.navigation} />
           <View style={styles.content}>
 
           {/* Create new cardgame modal */}
@@ -147,14 +150,15 @@ export default class CardGamesScreen extends React.Component {
                   this.textInput.clear();
                 }}
               />
-              <WideButton title={"Nytt kortspill"} action={() => this.newGame()} />
+              <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Nytt Kortspill"} action={() => this.newGame()} />
+
             </CustomModal>
 
             {/* Delete cardgame modal */}
-            <CustomModal modalVisible={this.state.deleteModalVisible} toggleModal={this.toggleDeletemodal} title={'Slett "' + this.state.gameTitle + '" ?'}>
+            <CustomModal modalVisible={this.state.deleteModalVisible} toggleModal={this.toggleDeletemodal} title={"Slett '" + this.state.gameTitle + "' ?"}>
               <View style={{flexDirection: 'row'}}>
-                <Button title="Tilbake" style={styles.grayButton} onPress={() => this.toggleDeletemodal(false)} />
-                <Button title="Slett" style={styles.button} onPress={() => this.deleteGame()} />
+                <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Tilbake"} color={"#ccc"}  action={() => this.toggleDeletemodal(false)} />
+                <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Slett"} action={() => this.deleteGame()} />
               </View>
             </CustomModal>
 
@@ -167,14 +171,14 @@ export default class CardGamesScreen extends React.Component {
                 renderItem={({ item, index }) =>
                   <TouchableHighlight style={styles.largeLink} onPress={ () => this.setPlayers(item) }>
                     <View style={{flexDirection: 'row', alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', padding: 20}}>
-                      <Text style={{ color: '#000' }}>{item.title}</Text>
+                      <Text style={styles.title}>{item.title}</Text>
                       <DeleteButton action={() => {this.toggleDeletemodal(true), this.setState({deleteIndex: index, gameTitle: this.state.cardGames[index].title }) } } />
                     </View>
                   </TouchableHighlight>
                 }
               />
             </View>
-            <WideButton title={"Nytt kortspill"} action={() => this.toggleModal(true)} />
+            <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Nytt kortspill"} action={() => this.toggleModal(true)} />
 
           </View>
         </View>
@@ -203,22 +207,13 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: '#d6d7da',
   },
-  button: {
-    height: 60,
-    width: '48%',
-    backgroundColor: '#F9A423',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  grayButton: {
-    height: 60,
-    width: '48%',
-    backgroundColor: '#ddd',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
   text: {
     fontSize: 20,
     justifyContent: 'center'
   },
+  title: {
+    fontSize: 25,
+    color: '#000',
+  }
 });

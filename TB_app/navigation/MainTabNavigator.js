@@ -67,7 +67,7 @@ const CardGamesStack = createStackNavigator({
 });
 
 CardGamesStack.navigationOptions = {
-  tabBarLabel: 'Kortspill',
+  tabBarLabel: 'Poengoversikt',
   tabBarOptions: {
     activeTintColor: Colors.tabIconSelected,
   },

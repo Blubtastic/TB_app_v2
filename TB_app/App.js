@@ -5,6 +5,12 @@ import AppNavigator from './navigation/AppNavigator';
 import firebase from 'firebase';
 
 export default class App extends React.Component {
+  constructor() {
+    super();
+    console.ignoredYellowBox = [
+    'Setting a timer'
+    ];
+  }
   state = {
     isLoadingComplete: false,
   };

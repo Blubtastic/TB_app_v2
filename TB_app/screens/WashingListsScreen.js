@@ -13,6 +13,10 @@ PROPERTIES:
 export default class WashingListsScreen extends React.Component {
   constructor(props) {
     super();
+    //Remove annoying timer-warning
+    console.ignoredYellowBox = [
+    'Setting a timer'
+    ];
     this.state = {
       washingLists: [],
       isLoading: true,
@@ -28,24 +32,24 @@ export default class WashingListsScreen extends React.Component {
 
 
     async componentDidMount(){
-    let responseJson = [];
-    let filtered = [];
-    let d = new Date();
-    let query = firebase.database().ref("washingLists").orderByKey();
-    let value = await query.once("value");
-    value.forEach(function(childSnapshot) {
-      let key = childSnapshot.key;
-      // childData will be the actual contents of the child
-      let childData = childSnapshot.val();
-      responseJson.push(childData);
-    });
-    filtered = responseJson.filter(wash => (parseInt(wash.date.slice(0,2)) >= d.getDate()));
-    this.setState({
-      ...this.state,
-      isLoading: false,
-      washingLists: filtered,
-    });
-  };
+      let responseJson = [];
+      let filtered = [];
+      let d = new Date();
+      let query = firebase.database().ref("washingLists").orderByKey();
+      let value = await query.once("value");
+      value.forEach(function(childSnapshot) {
+        let key = childSnapshot.key;
+        // childData will be the actual contents of the child
+        let childData = childSnapshot.val();
+        responseJson.push(childData);
+      });
+      filtered = responseJson.filter(wash => (parseInt(wash.date.slice(0,2)) >= d.getDate()));
+      this.setState({
+        ...this.state,
+        isLoading: false,
+        washingLists: filtered,
+      });
+    };
 
     checkRoomDate(){
       for(let i = 0; i<this.state.washingLists.length; i++){
@@ -86,7 +90,8 @@ export default class WashingListsScreen extends React.Component {
             <Text>{item.date}</Text>
           </View>
           }
-          keyExtractor={({_id}, index) => _id}
+          //Only works for immutable lists?
+          keyExtractor={(item, index) => index.toString()}
           />
         </View>
       </View>
@@ -94,15 +99,7 @@ export default class WashingListsScreen extends React.Component {
     }
   }
 }
-/*
-  getWashingLists() {
-    get("localhost:8000/tb_app", function (response) {
-      let washingLists = response;
-      this.setState(({washingLists: this.state.washingLists}));
-    });
-  }
-}
-*/
+
 //STYLES
 const styles = StyleSheet.create({
   content: {

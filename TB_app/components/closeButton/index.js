@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button} from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
+import Color from '../../constants/Colors'
 
 /*
 CLOSEBUTTON COMPONENT: --------------------------------------------------------
@@ -17,9 +17,9 @@ export default class CloseButton extends React.Component {
 
   render() {
     return (
-      <Button style={styles.closeBtn} onPress={this.props.action} title="">
-        <Ionicons style={{fontSize: 50, color: '#111'}}  name="close" />
-      </Button>
+      <TouchableHighlight style={styles.closeBtn} onPress={this.props.action} title="">
+        <Ionicons style={{fontSize: 50, color: '#fff'}}  name="ios-close" />
+      </TouchableHighlight>
     );
   }
 }
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: '#F9A423',
+    backgroundColor: Color.tintColor,
     alignItems: 'center',
     justifyContent: 'center',
   },
