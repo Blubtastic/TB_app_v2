@@ -6,6 +6,7 @@ import CustomModal from '../components/customModal';
 import DeleteButton from '../components/deleteButton';
 import WideButton from '../components/wideButton';
 import DefaultButton from '../components/defaultButton';
+import { H1, H2, H3 } from '../components/textTypes/index.js'
 import CardGame from './CardGame.js';
 
 import Color from '../constants/Colors'
@@ -170,8 +171,8 @@ export default class CardGamesScreen extends React.Component {
                 keyExtractor={(_score, index) => `${this.state.cardGames.key}-score-${index}`}
                 renderItem={({ item, index }) =>
                   <TouchableHighlight style={styles.largeLink} onPress={ () => this.setPlayers(item) }>
-                    <View style={{flexDirection: 'row', alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', padding: 20}}>
-                      <Text style={styles.title}>{item.title}</Text>
+                    <View style={{flexDirection: 'row', alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 10}}>
+                      <H2>{item.title}</H2>
                       <DeleteButton action={() => {this.toggleDeletemodal(true), this.setState({deleteIndex: index, gameTitle: this.state.cardGames[index].title }) } } />
                     </View>
                   </TouchableHighlight>

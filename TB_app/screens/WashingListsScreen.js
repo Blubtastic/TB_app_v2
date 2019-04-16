@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, ActivityIndicator, Image, Platform} from 'react-native';
 import CustomHeader from '../components/customHeader';
+import {H1, H2, H3} from '../components/textTypes';
+import Color from '../constants/Colors'
 import firebase from 'firebase';
 
 /*
@@ -13,10 +15,6 @@ PROPERTIES:
 export default class WashingListsScreen extends React.Component {
   constructor(props) {
     super();
-    //Remove annoying timer-warning
-    console.ignoredYellowBox = [
-    'Setting a timer'
-    ];
     this.state = {
       washingLists: [],
       isLoading: true,
@@ -58,7 +56,7 @@ export default class WashingListsScreen extends React.Component {
           return (<Text>Din vaskedag er {this.state.washingLists[i].date}!</Text>)
         }
       }
-      return (<Text>Du har ikke vaskedag denne måneden!</Text>)
+      return (<H3>Du har ikke vaskedag denne måneden!</H3>)
     };
 
   render(){
@@ -79,7 +77,7 @@ export default class WashingListsScreen extends React.Component {
           <CustomHeader title={"Vaskelister"} icon={Platform.OS === 'ios' ? 'ios-list-box' : 'md-list-box'} />
 
           <View style={styles.content}>
-            <View>
+            <View style={{paddingVertical: 5, alignItems: 'center', backgroundColor: Color.offWhite}}>
               {washDate}
             </View>
           <FlatList

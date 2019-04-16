@@ -3,13 +3,12 @@ import {Platform, StatusBar, StyleSheet, Text, View} from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import firebase from 'firebase';
+import {YellowBox} from 'react-native';
 
 export default class App extends React.Component {
   constructor() {
     super();
-    console.ignoredYellowBox = [
-    'Setting a timer'
-    ];
+    YellowBox.ignoreWarnings(['Setting a timer']);
   }
   state = {
     isLoadingComplete: false,
