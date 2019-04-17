@@ -47,3 +47,13 @@ export class Italic extends React.Component {
     );
   }
 }
+
+  export class Bold extends React.Component {
+    render() {
+      return (
+        <Text style={{fontWeight: 'bold'}}>
+          {this.props.children}
+        </Text>
+      );
+    }
+}

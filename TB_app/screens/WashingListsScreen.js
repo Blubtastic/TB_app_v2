@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, ActivityIndicator, Image, Platform} from 'react-native';
+import { AsyncStorage, StyleSheet, Text, View, FlatList, ActivityIndicator, Image, Platform} from 'react-native';
 import CustomHeader from '../components/customHeader';
-import {H1, H2, H3} from '../components/textTypes';
+import {Bold, Italic, H1, H2, H3} from '../components/textTypes';
 import Color from '../constants/Colors'
 import firebase from 'firebase';
 
@@ -18,6 +18,7 @@ export default class WashingListsScreen extends React.Component {
     this.state = {
       washingLists: [],
       isLoading: true,
+      roomNum: null,
     }
   }
   static navigationOptions = {
@@ -27,6 +28,24 @@ export default class WashingListsScreen extends React.Component {
       <Image source={ require('../assets/images/vaskelister.png') } style={{width: 24, height: 24}}/>
     ),
   };
+
+  //Get from localstorage
+  retrieveData = async () => {
+    try{
+      const value = await AsyncStorage.getItem("roomNum");
+      if(value !== null) {
+        //We have data!
+        retrievedRoomNum = JSON.parse(value);
+        console.log("value retrieved from localstorage: " + retrievedRoomNum);
+        this.setState({roomNum: retrievedRoomNum});
+      }else{
+        console.log("Data was retrieved but empty");
+      }
+    }
+    catch (error) {
+      console.log("Error retrieving data. Error: " + error);
+    }
+  }
 
 
     async componentDidMount(){
@@ -49,14 +68,18 @@ export default class WashingListsScreen extends React.Component {
       });
     };
 
+    componentWillMount(){
+      this.retrieveData();
+    }
+
     checkRoomDate(){
       for(let i = 0; i<this.state.washingLists.length; i++){
         //TODO: Bytt ut 604 med brukers nummer fra props/localstorage
-        if(this.state.washingLists[i].room == 604){
-          return (<Text>Din vaskedag er {this.state.washingLists[i].date}!</Text>)
+        if(this.state.washingLists[i].room == this.state.roomNum){
+          return (<Text>Du har vaskedag <Bold>{this.state.washingLists[i].date}</Bold></Text>)
         }
       }
-      return (<H3>Du har ikke vaskedag denne måneden!</H3>)
+      return (<Text>Du har <Bold>ikke</Bold> vaskedag</Text>)
     };
 
   render(){

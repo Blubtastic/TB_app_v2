@@ -77,6 +77,7 @@ export default class CardGamesScreen extends React.Component {
       console.log("error saving data. Error: " + error);
     }
   }
+  //LocalStorage function for getting Cardgame-data
   retrieveData = async () => {
     try{
       const value = await AsyncStorage.getItem("allGames");
@@ -151,7 +152,7 @@ export default class CardGamesScreen extends React.Component {
                   this.textInput.clear();
                 }}
               />
-              <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Nytt Kortspill"} action={() => this.newGame()} />
+              <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Lag poengliste"} action={() => this.newGame()} />
 
             </CustomModal>
 
@@ -164,7 +165,7 @@ export default class CardGamesScreen extends React.Component {
             </CustomModal>
 
             {/* List of all card games */}
-            <View style={{alignSelf: 'stretch', maxHeight: '90%'}}>
+            <View style={{alignSelf: 'stretch', maxHeight: '90%', justifyContent: 'center'}}>
               <FlatList
                 data={this.state.cardGames}
                 extraData={this.state}
@@ -179,7 +180,7 @@ export default class CardGamesScreen extends React.Component {
                 }
               />
             </View>
-            <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Nytt kortspill"} action={() => this.toggleModal(true)} />
+            <DefaultButton buttonStyle={{width: 200, margin: 30}} title={"Ny poengliste"} action={() => this.toggleModal(true)} />
 
           </View>
         </View>
