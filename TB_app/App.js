@@ -1,13 +1,19 @@
 import React from 'react';
-import {Platform, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {KeyboardAvoidingView, AsyncStorage, Platform, StatusBar, StyleSheet, Text, View, TextInput} from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import firebase from 'firebase';
 import {YellowBox} from 'react-native';
+import { H1, H2, H3, Italic } from './components/textTypes/index.js';
+import DefaultButton from './components/defaultButton';
 
 export default class App extends React.Component {
   constructor() {
     super();
+    this.state = {
+      roomNum: null,
+      hasRoomNum: false,
+    }
     YellowBox.ignoreWarnings(['Setting a timer']);
   }
   state = {
@@ -24,6 +30,53 @@ export default class App extends React.Component {
       messagingSenderId: "1039894800413"
     };
     firebase.initializeApp(config);
+    this.retrieveData(); //get data from localstorage and update state which then generates list.
+  }
+
+  //Store data in localstorage
+  // saveRoomNum(title, data){
+  //   tempCardGames = this.state.cardGames;
+  //   let inList = false;
+  //   for (i = 0; i < tempCardGames.length; i++) {
+  //     if (title == tempCardGames[i].title){
+  //       tempCardGames[i] = {title: title, data: data};
+  //       inList = true;
+  //     }
+  //   }
+  //   if (!inList) { //Append if not overwrite
+  //     tempCardGames.unshift({title: title, data: data});
+  //   }
+  //   this.setState({ cardGames: tempCardGames  }, () =>  this.storeData());
+  //   console.log(this.state.cardGames);
+  // }
+  storeData = async () => {
+    if(this.state.roomNum != null){
+      this.setState({hasRoomNum: true});
+    }
+    let data = JSON.stringify(this.state.roomNum);
+    try {
+      await AsyncStorage.setItem("roomNum", data);
+    }
+    catch (error) {
+      console.log("error saving data. Error: " + error);
+    }
+  }
+  //Get from localstorage
+  retrieveData = async () => {
+    try{
+      const value = await AsyncStorage.getItem("roomNum");
+      if(value !== null) {
+        //We have data!
+        retrievedRoomNum = JSON.parse(value);
+        console.log("value retrieved from localstorage: " + retrievedRoomNum);
+        this.setState({roomNum: retrievedRoomNum});
+      }else{
+        console.log("Data was retrieved but empty");
+      }
+    }
+    catch (error) {
+      console.log("Error retrieving data. Error: " + error);
+    }
   }
 
   render() {
@@ -36,12 +89,38 @@ export default class App extends React.Component {
         />
       );
     } else {
-      return (
-        <React.Fragment>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator />
-        </React.Fragment>
-      );
+      if(this.state.hasRoomNum == false){
+        return (
+          <KeyboardAvoidingView style={styles.roomNumScreen} behavior="padding" enabled>
+            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+            <H2>Skriv inn romnummeret ditt</H2>
+            <View style={styles.inputArea}>
+              <TextInput
+                style={styles.inputStyle}
+                autoFocus={true}
+                placeholder="Romnummer"
+                ref={input => { this.textInput = input }}
+                blurOnSubmit={true}
+                keyboardType={'numeric'}
+                onChangeText={ (text) => this.setState({ roomNum: text }) }
+                onSubmitEditing={() => {
+                  this.storeData();
+                  this.textInput.clear();
+                }}
+              />
+              <DefaultButton buttonStyle={{alignSelf: 'stretch'}} title={"Legg til"} action={() => this.storeData()} />
+              </View>
+            <Italic>Romnummeret lagres kun på telefonen og er kun for brukervennlighet</Italic>
+          </KeyboardAvoidingView>
+        );
+      }else{
+        return (
+          <React.Fragment>
+            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+            <AppNavigator />
+          </React.Fragment>
+        );
+      }
     }
   }
 
@@ -76,5 +155,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  inputStyle: {
+    height: 60,
+    alignSelf: 'stretch',
+    backgroundColor: '#eee',
+  },
+  roomNumScreen: {
+    alignItems: 'center',
+    flexGrow: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 40,
+  },
+  inputArea: {
+    marginVertical: 50,
+    width: 200,
+    alignItems: 'stretch',
   },
 });

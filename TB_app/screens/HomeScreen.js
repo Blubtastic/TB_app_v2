@@ -1,16 +1,19 @@
 import React from 'react';
-import {Image, Platform, ScrollView, StyleSheet, Text, TouchableHighlight, View, ImageBackground} from 'react-native';
+import {AsyncStorage, Image, Platform, ScrollView, StyleSheet, Text, TouchableHighlight, View, ImageBackground} from 'react-native';
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 import CustomHeader from "../components/customHeader";
+import {H1, H2, H3} from '../components/textTypes/index.js';
+import Color from '../constants/Colors';
 
 export default class HomeScreen extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      image1: require('../assets/images/calendar.jpg')
+      image1: require('../assets/images/calendar.jpg'),
+      roomNum: null,
     };
   }
 
@@ -18,6 +21,28 @@ export default class HomeScreen extends React.Component {
     header: null,
     title: null
   };
+
+  //Get from localstorage
+  retrieveData = async () => {
+    try{
+      const value = await AsyncStorage.getItem("roomNum");
+      if(value !== null) {
+        //We have data!
+        retrievedRoomNum = JSON.parse(value);
+        console.log("value retrieved from localstorage: " + retrievedRoomNum);
+        this.setState({roomNum: retrievedRoomNum});
+      }else{
+        console.log("Data was retrieved but empty");
+      }
+    }
+    catch (error) {
+      console.log("Error retrieving data. Error: " + error);
+    }
+  }
+
+  componentWillMount(){
+    this.retrieveData();
+  }
 
   render() {
     const { navigate } = this.props.navigation;
@@ -27,6 +52,9 @@ export default class HomeScreen extends React.Component {
         <ScrollView style={{ flex: 1 }}>
 
           <View style={styles.content}>
+            <View style={{paddingVertical: 10, alignItems: 'center'}}>
+              <H3 style={{alignitems: 'center'}}>Velkommen {this.state.roomNum}</H3>
+            </View>
 
             {/* Shortcut to the most important component */}
             <ImageBackground style={styles.largeImg} source={require('../assets/images/kortspill.jpg')}>
@@ -85,7 +113,6 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-    padding: 4,
   },
   row: {
     flexDirection: 'row',

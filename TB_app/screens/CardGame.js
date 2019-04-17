@@ -183,7 +183,7 @@ export default class CardGame extends React.Component {
                   />
                 </View>
               }
-            />
+            />0
             <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Legg til"} action={() => this.addScores()} />
 
           </CustomModal>

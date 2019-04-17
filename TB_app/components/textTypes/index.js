@@ -37,3 +37,13 @@ export class H3 extends React.Component {
     );
   }
 }
+
+export class Italic extends React.Component {
+  render() {
+    return (
+      <Text style={{fontStyle: ('normal', 'italic')}}>
+        {this.props.children}
+      </Text>
+    );
+  }
+}
