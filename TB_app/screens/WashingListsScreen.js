@@ -82,6 +82,18 @@ export default class WashingListsScreen extends React.Component {
       return (<Text>Du har <Bold>ikke</Bold> vaskedag</Text>)
     };
 
+    shortListWarning(){
+      if(this.state.washingLists.length < 5){
+        return (
+          <View style={{alignItems: 'center', padding: 5, backgroundColor: Color.offWhite}}>
+            <Text>Nye lister kommer snart</Text>
+          </View>
+        )
+      }else{
+        return;
+      }
+    }
+
   render(){
     //Render loading screen
     if(this.state.isLoading){
@@ -115,6 +127,7 @@ export default class WashingListsScreen extends React.Component {
           keyExtractor={(item, index) => index.toString()}
           />
         </View>
+        {this.shortListWarning()}
       </View>
     );
     }
@@ -129,7 +142,7 @@ const styles = StyleSheet.create({
   listRow: {
     flex: 1,
     justifyContent: 'center',
-    padding: 15,
+    padding: 12,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
   },
