@@ -108,8 +108,8 @@ export default class App extends React.Component {
                   this.textInput.clear();
                 }}
               />
-              <DefaultButton buttonStyle={{alignSelf: 'stretch'}} title={"Legg til"} action={() => this.storeData()} />
-              </View>
+              <DefaultButton title={"Legg til"} action={() => this.storeData()} />
+            </View>
             <Italic>Romnummeret lagres kun på telefonen og er kun for brukervennlighet</Italic>
           </KeyboardAvoidingView>
         );
@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   inputStyle: {
+    paddingHorizontal: 10,
     height: 60,
     alignSelf: 'stretch',
     backgroundColor: '#eee',
@@ -168,7 +169,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
   },
   inputArea: {
-    marginVertical: 50,
+    marginTop: 50,
+    marginBottom: 20,
     width: 200,
     alignItems: 'stretch',
   },

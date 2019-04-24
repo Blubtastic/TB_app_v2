@@ -7,6 +7,8 @@ import DeleteButton from '../components/deleteButton';
 import WideButton from '../components/wideButton';
 import CloseButton from '../components/closeButton';
 import DefaultButton from '../components/defaultButton';
+import FullWidthButton from '../components/fullWidthButton';
+
 
 
 /*
@@ -129,7 +131,7 @@ export default class CardGame extends React.Component {
 
   renderPointButton() { //Only render points button if there are players.
     if (this.state.players.length > 0){
-      return <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Legg til poeng"} action={() => this.toggleModal(true)} />;
+      return <DefaultButton title={"Legg til poeng"} action={() => this.toggleModal(true)} />;
     }else{
       return null;
     }
@@ -147,7 +149,7 @@ export default class CardGame extends React.Component {
           {/* New player */}
           <TextInput
             style={styles.inputStyle}
-            autoFocus={true}
+            autoFocus={false}
             placeholder="Legg til ny spiller"
             ref={input => { this.textInput = input }}
             blurOnSubmit={true}
@@ -175,6 +177,7 @@ export default class CardGame extends React.Component {
                       this.state.inputs[item.key] = input;
                     }}
                     blurOnSubmit={false}
+                    autoFocus={item.key == 0}
                     keyboardType={'numeric'}
                     onChangeText={(text) => item.nextScore = parseInt(text)}
                     onSubmitEditing={() => {
@@ -183,8 +186,8 @@ export default class CardGame extends React.Component {
                   />
                 </View>
               }
-            />0
-            <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Legg til"} action={() => this.addScores()} />
+            />
+            <FullWidthButton  title={"Legg til"} action={() => this.addScores()} />
 
           </CustomModal>
 
@@ -201,7 +204,7 @@ export default class CardGame extends React.Component {
                 </View>
               }
             />
-            <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Slett spiller"} action={() => this.deletePlayer()} />
+            <FullWidthButton  title={"Slett spiller"} action={() => this.deletePlayer()} />
           </CustomModal>
 
           {/* Generate players/scores */}
@@ -215,7 +218,7 @@ export default class CardGame extends React.Component {
                 renderItem={({ item }) =>
 
                   <TouchableHighlight onPress={ () => this.selectPlayer(item) } >
-                    <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10, borderBottomWidth: 0.5, borderColor: '#333', }}>
                       <View style={{ marginRight: 10, width: '30%', borderRightWidth: 0.5, borderColor: '#d6d7da', }}>
                         <Text>{item.name}</Text>
                         <Text style={{ color: '#F9A423' }}>{item.sum + ' poeng'}</Text>
@@ -252,7 +255,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: 80,
+    height: 60,
     marginTop: 34,
     marginBottom: 10,
     padding: 10

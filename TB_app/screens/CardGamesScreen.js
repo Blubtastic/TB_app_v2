@@ -6,6 +6,7 @@ import CustomModal from '../components/customModal';
 import DeleteButton from '../components/deleteButton';
 import WideButton from '../components/wideButton';
 import DefaultButton from '../components/defaultButton';
+import FullWidthButton from '../components/fullWidthButton';
 import { H1, H2, H3 } from '../components/textTypes/index.js'
 import CardGame from './CardGame.js';
 
@@ -152,15 +153,19 @@ export default class CardGamesScreen extends React.Component {
                   this.textInput.clear();
                 }}
               />
-              <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Lag poengliste"} action={() => this.newGame()} />
+              <FullWidthButton title={"Lag poengliste"} action={() => this.newGame()} />
 
             </CustomModal>
 
             {/* Delete cardgame modal */}
             <CustomModal modalVisible={this.state.deleteModalVisible} toggleModal={this.toggleDeletemodal} title={"Slett '" + this.state.gameTitle + "' ?"}>
-              <View style={{flexDirection: 'row'}}>
-                <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Tilbake"} color={"#ccc"}  action={() => this.toggleDeletemodal(false)} />
-                <DefaultButton buttonStyle={{alignSelf: 'stretch', flexGrow: 1}} title={"Slett"} action={() => this.deleteGame()} />
+              <View style={{flexDirection: 'row', maxWidth: '100%'}}>
+                <View style={{width: '50%'}}>
+                  <FullWidthButton title={"Tilbake"} color={"#ccc"}  action={() => this.toggleDeletemodal(false)} />
+                </View>
+                <View style={{width: '50%'}}>
+                  <FullWidthButton title={"Slett"} action={() => this.deleteGame()} />
+                </View>
               </View>
             </CustomModal>
 
@@ -180,7 +185,7 @@ export default class CardGamesScreen extends React.Component {
                 }
               />
             </View>
-            <DefaultButton buttonStyle={{width: 200, margin: 30}} title={"Ny poengliste"} action={() => this.toggleModal(true)} />
+            <DefaultButton title={"Ny poengliste"} action={() => this.toggleModal(true)} />
 
           </View>
         </View>

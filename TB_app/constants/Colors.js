@@ -4,6 +4,7 @@ const tintColor = '#F9A423';
 export default {
   tintColor,
   offWhite: '#efefef',
+  lightBlack: '#666',
 
   textInsideOrange: '#fff',
   tabIconDefault: '#ccc',

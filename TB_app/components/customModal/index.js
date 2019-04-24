@@ -24,6 +24,7 @@ export default class CustomModal extends React.Component {
       <View style={{ alignSelf: 'stretch', alignItems: 'center', maxHeight: '80%' }}>
         <Modal
           animationType="fade"
+          hardwareAccelerated={true}
           transparent={true}
           visible={this.props.modalVisible}
           onRequestClose={() => {
@@ -33,12 +34,13 @@ export default class CustomModal extends React.Component {
             <TouchableWithoutFeedback>
               <View style={styles.modalContent}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 }}>
-                  <Text style={styles.title}>{this.props.title}</Text>
+                  <Text style={styles.title}>
+                    {this.props.title}
+                  </Text>
                   <View style={{ position: 'absolute', top: -10, right: -10 }}>
                     <CloseButton action={ () => this.props.toggleModal(false) } />
                   </View>
                 </View>
-
                 {this.props.children}
 
               </View>
@@ -55,16 +57,18 @@ const styles = StyleSheet.create({
   modalBackground: {
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
     alignItems: 'center',
-    paddingTop: 50,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     flex: 1,
     zIndex: 1,
+    paddingVertical: 20,
   },
   modalContent: {
     width: '90%',
-    maxHeight: '80%',
+    maxHeight: '100%',
     backgroundColor: '#fff',
-    padding: 25,
+    paddingTop: 25,
+    paddingHorizontal: 25,
+    paddingBottom: 5,
     position: 'relative',
     zIndex: 2,
   },

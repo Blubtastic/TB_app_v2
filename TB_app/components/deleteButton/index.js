@@ -19,7 +19,7 @@ export default class DeleteButton extends React.Component {
   render() {
     return (
       <TouchableHighlight style={styles.closeBtn} onPress={this.props.action} title="" >
-        <Ionicons style={{fontSize: 30, color: Color.tabIconDefault}}  name="md-trash" />
+        <Ionicons style={{fontSize: 30, color: Color.lightBlack}}  name="md-trash" />
       </TouchableHighlight>
     );
   }

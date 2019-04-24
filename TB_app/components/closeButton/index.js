@@ -18,7 +18,7 @@ export default class CloseButton extends React.Component {
   render() {
     return (
       <TouchableHighlight style={styles.closeBtn} onPress={this.props.action} title="">
-        <Ionicons style={{fontSize: 50, color: '#fff'}}  name="ios-close" />
+        <Ionicons style={{fontSize: 60, color: Color.lightBlack}}  name="ios-close" />
       </TouchableHighlight>
     );
   }
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: Color.tintColor,
+    // backgroundColor: Color.tintColor,
     alignItems: 'center',
     justifyContent: 'center',
   },
